@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<actionscript_math>
+  <function name="sin">
+    <![CDATA[
+      set(x, X-int(X/2PI)*2PI);
+      set(x3, 1);
+      if (X<0) {
+        set(x3, -1);
+        set(x, -X);
+      }
+      if (X>PI) {
+        set(x3, -X3);
+        set(x, X-PI);
+      }
+      if (X>PI/2) {
+        set(x, PI-X);
+      }
+      set(x2, X*X);
+      X3*X*(1-X2*(RF3-X2*(RF5-X2*(RF7-X2*(RF9-X2*RF11)))));
+    ]]>
+  </function>
+  <function name="cos">
+    <![CDATA[
+      set(x, X+PI/2);
+      set(x, X-int(X/2PI)*2PI);
+      set(x3, 1);
+      if (X<0) {
+        set(x3, -1);
+        set(x, -X);
+      }
+      if (X>PI) {
+        set(x3, -X3);
+        set(x, X-PI);
+      }
+      if (X>PI/2) {
+        set(x, PI-X);
+      }
+      set(x2, X*X);
+      X3*X*(1-X2*(RF3-X2*(RF5-X2*(RF7-X2*(RF9-X2*RF11)))));
+    ]]>
+  </function>
+  <function name="tan">
+    <![CDATA[
+      set(x, X-int(X/2PI)*2PI);
+      set(x3, 1);
+      if (X<0) {
+        set(x3, -1);
+        set(x, -X);
+      }
+      if (X>PI) {
+        set(x, X-PI);
+      }
+      if (X>PI/2) {
+        set(x, PI-X);
+        set(x3, -X3);
+      }
+      set(x2, X*X);
+      X3*X*(1-X2*(RF3-X2*(RF5-X2*(RF7-X2*(RF9-X2*RF11)))))/
+      (1-X2*(RF2-X2*(RF4-X2*(RF6-X2*(RF8-X2*(RF10-X2*RF12))))));
+    ]]>
+  </function>
+  <function name="asin">
+    <![CDATA[
+      // X = final result
+      // X1 = input and numerator
+      // X2 = X squared
+      // X3 = factor
+      // X5 = iterator
+      if (X1<=-0.9999999) {
+        if (X1>=-1.0000001) {
+          set(x,-PI/2);
+	}
+	else {
+	  // return NaN
+	  set(x1, 1);
+	  set(x2, 9999999);
+	  while(X1 < 10) {
+	  	set(x2, X2*X2);
+		set(x1, X1+1);
+	  }
+	  set(x3, 0);
+	  set(x, X3*X2);
+	  set(x4,1);
+	}
+      } else if (X1>=0.9999999) {
+	if (X1 <= 1.0000001) {	
+          set(x,PI/2);
+	}
+	else {
+	  // return NaN
+	  set(x1, 1);
+	  set(x2, 9999999);
+	  while(X1 < 10) {
+	  	set(x2, X2*X2);
+		set(x1, X1+1);
+	  }
+	  set(x3, 0);
+	  set(x, X3*X2);
+	  set(x4,1);
+	}
+      } else {
+        set(x, 0);
+        set(x2, X1*X1);
+        set(x3, 1);
+        set(x5, 1);
+        while (X5 <= 256) {
+          set(x, X+X1*X3/X5);
+          set(x3, X3*X5/(X5+1));
+          set(x5, X5+2);
+          set(x1, X1*X2);
+        }
+      }
+      X;
+    ]]>
+  </function>
+  <function name="acos">
+    <![CDATA[
+      // X = final result
+      // X1 = input and numerator
+      // X2 = X squared
+      // X3 = factor
+      // X4 = whether to use #ERROR# value or not
+      // X5 = iterator
+      set(x4, 0);
+      if (X1<=-0.9999999) {
+        if (X1>=-1.0000001) {
+          set(x,-PI/2);
+	}
+	else {
+	  // return NaN
+	  set(x1, 1);
+	  set(x2, 9999999);
+	  while(X1 < 10) {
+	  	set(x2, X2*X2);
+		set(x1, X1+1);
+	  }
+	  set(x3, 0);
+	  set(x, X3*X2);
+	  set(x4,1);
+	}
+      } else if (X1>=0.9999999) {
+        if (X1<=1.0000001) {
+          set(x,PI/2);
+	}
+	else {
+	  // return NaN
+	  set(x1, 1);
+	  set(x2, 9999999);
+	  while(X1 < 10) {
+	  	set(x2, X2*X2);
+		set(x1, X1+1);
+	  }
+	  set(x3, 0);
+	  set(x, X3*X2);
+	  set(x4,1);
+	}
+      } else {
+        set(x, 0);
+        set(x2, X1*X1);
+        set(x3, 1);
+        set(x5, 1);
+        while (X5 <= 256) {
+          set(x, X+X1*X3/X5);
+          set(x3, X3*X5/(X5+1));
+          set(x5, X5+2);
+          set(x1, X1*X2);
+        }
+      }
+      X4?X:PI/2-X;
+    ]]>
+  </function>
+  <function name="atan">
+    <![CDATA[
+      // X  = value of x in atan(x)
+      // X1 = numerator
+      // X2 = X squared
+      // X3 = denominator
+      set(x4,0);
+      if (X>=-1.0000001 && X<=-0.9999999) {
+        set(x,-PI/4);
+      } else if (X>=0.9999999 && X<=1.0000001) {
+        set(x,PI/4);
+      } else {
+        if (X<-1) {
+          set(x,-1/X);
+          set(x4,-1);
+        } else if (X>1) {
+          set(x,1/X);
+          set(x4,1);
+        }
+        set(x2, X*X);
+        set(x1, X);
+        set(x3, 1);
+        set(x, 0);
+        while (X3<=50) {
+          set(x, X+X1/X3);
+          set(x1, -X1*X2);
+          set(x3, X3+2);
+        }
+      }
+      X4?(X4*(PI/2-X)):X;
+    ]]>
+  </function>
+  <function name="atan2">
+    <![CDATA[
+      // X  = value of x in atan(x)
+      // X1 = numerator
+      // X2 = X squared
+      // X3 = denominator
+      set(x4,0);
+      if (X>=-1.0000001 && X<=-0.9999999) {
+        set(x,-PI/4);
+      } else if (X>=0.9999999 && X<=1.0000001) {
+        set(x,PI/4);
+      } else {
+        if (X<-1) {
+          set(x,-1/X);
+          set(x4,-1);
+        } else if (X>1) {
+          set(x,1/X);
+          set(x4,1);
+        }
+        set(x2, X*X);
+        set(x1, X);
+        set(x3, 1);
+        set(x, 0);
+        while (X3<=50) {
+          set(x, X+X1/X3);
+          set(x1, -X1*X2);
+          set(x3, X3+2);
+        }
+      }
+      X4?(X4*(PI/2-X)):X;
+    ]]>
+  </function>
+  <function name="exp">
+    <![CDATA[
+      // Build the approximation for exp(x)
+      // X  = value of x in exp(x)
+      // X1 = final result
+      // X2 = numerator
+      // X3 = denominator
+      // X4 = iterator
+      set(x5,1);
+      if (X<0) {
+        set(x,-X);
+        set(x5,-1);
+      }
+      set(x1,0);
+      set(x2,1); set(x3,1); set(x4, 1);
+      while (X4 <= 128) {
+        set(x1, X1+X2/X3);
+        set(x2, X2*X);
+        set(x3, X3*X4);
+        set(x4, X4+1);
+     }
+     (X5<0)?(1/X1):X1;
+    ]]>
+  </function>
+  <function name="abs">
+    <![CDATA[
+      (X<0)?(-X):X;
+    ]]>
+  </function>
+  <function name="log">
+    <![CDATA[
+      set(x1,(X-1)/(X+1));
+      set(x, 0); set(x2, 1); set(x3, X1*X1);
+      while (X2 <= 128) {
+        set(x, X+X1/(2*X2-1));
+        set(x1, X1*X3);
+        set(x2, X2+1);
+      }
+      2*X;
+    ]]>
+  </function>
+  <function name="sqrt">
+    <![CDATA[
+      if(X1 < 0) {
+	// return NaN
+	set(x1, 1);
+	set(x2, 9999999);
+	while(X1 < 10) {
+	  set(x2, X2*X2);
+	  set(x1, X1+1);
+	}
+	set(x3, 0);
+	set(x4, X3*X2);
+      }
+      else {
+        set(x2, X1/2);
+        while (Math.abs(X2*X2-X1)>0.00001) {
+          set(x2,0.5*(X2+X1/X2));
+	}
+	set(x4, X2);  
+      }
+      X4;
+    ]]>
+  </function>
+  <function name="min">
+    <![CDATA[
+      X1<X2?X1:X2;
+    ]]>
+  </function>
+  <function name="max">
+    <![CDATA[
+      X1>X2?X1:X2;
+    ]]>
+  </function>
+  <function name="floor">
+    <![CDATA[
+      (X<int(X))?int(X-1):int(X)
+    ]]>
+  </function>
+  <function name="ceil">
+    <![CDATA[
+      (X>int(X))?int(X+1):int(X)
+    ]]>
+  </function>
+  <function name="random">
+    <![CDATA[
+      random(2147483647)/2147483647
+    ]]>
+  </function>
+  <function name="pow">
+    <![CDATA[
+      set(x5,1);
+      if (X2==0) {
+        set(x1,1);
+      }
+      else if (X==0 && X2 < 0) {
+        set(x1,"9999999999");
+        set(x4, 1);
+        while (X4 <= 128) {
+          set(x1, X1*X1);
+          set(x4, X4+1);
+        }
+		set(x5,1);
+      }
+      else {
+        if (X2<0) {
+          set(x2,-X2);
+          set(x5,-1);
+        }
+        if (X2==1) {
+          set(x1,X);
+        }
+		// handle integer powers specially
+		else if ( (X2 - int(X2)) == 0)
+		{
+          set(x4,2);
+          set(x1,X);
+          while (X4 <= X2) {
+            set(x1,X1*X);
+            set(x4,X4+1);
+          }
+		}
+		else if (X < 0)
+		{
+		  // can't handle non integer powers of negative numbers
+		  // Set result to zero
+          set(x1,0);
+          set(x5,1);
+		}
+        else {
+          // Build the approximation for pow(x, y)
+          // z = x ^ y
+          // z = exp(y * ln(x))
+          // Build the approximation for log(x)
+          set(x1,(X-1)/(X+1));
+          set(x, 0); set(x4, 1); set(x3, X1*X1);
+          while (X4 <= 128) {
+            set(x, X+X1/(2*X4-1));
+            set(x1, X1*X3);
+            set(x4, X4+1);
+          }
+          set(x, 2*X*X2);
+          // Build the approximation for exp(x)
+          // X  = value of x in exp(x)
+          // X1 = final result
+          // X2 = numerator
+          // X3 = denominator
+          // X4 = iterator
+          set(x1,0);
+          set(x2,1); set(x3,1); set(x4, 1);
+          while (X4 <= 128) {
+            set(x1, X1+X2/X3);
+            set(x2, X2*X);
+            set(x3, X3*X4);
+            set(x4, X4+1);
+          }
+        }
+      }
+      (X5<0)?(1/X1):X1;
+    ]]>
+  </function>
+</actionscript_math>
+
+
